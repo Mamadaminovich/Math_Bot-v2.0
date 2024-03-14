@@ -1,0 +1,52 @@
+virtualenv venv
+
+venv\Scripts\activate
+
+pip install django
+
+pip install pyTelegramBotAPI
+
+django-admin startproject math_bot .
+
+django-admin startapp app
+
+python manage.py runserver
+
+#Ngrok
+ngrok config add-authtoken 2dfT7Zt0wvSKasEnszkLqNgBru7_buyPPF7f9HpHhW9d8e4a
+
+ngrok http 8000
+
+#Postman
+https://api.telegram.org/bot<bot_token>/setWebhook?url=https://<ngrok_uid>.ngrok-free.app/bot/
+
+#app/urls.py:
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('', bot_view, name='bot_view'),
+]
+
+#app/views.py:
+from django.shortcuts import render, HttpResponse
+
+def bot_view():
+    return HttpResponse('Salom Dunyo!')
+
+#code
+import telebot
+bot = telebot.TeleBot("TOKEN")
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+	bot.reply_to(message, "Howdy, how are you doing?")
+
+@bot.message_handler(func=lambda m: True)
+def echo_all(message):
+	bot.reply_to(message, message.text)
+
+#Migrations
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
