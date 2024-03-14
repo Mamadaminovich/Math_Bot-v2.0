@@ -1,0 +1,8 @@
+#Ngrok
+ngrok config add-authtoken 2dfT7Zt0wvSKasEnszkLqNgBru7_buyPPF7f9HpHhW9d8e4a
+
+ngrok http 8000
+
+#Postman ga POST qilib tashlash kerak.
+(ngrok adress raqamlari ngrok_uid ga)
+https://api.telegram.org/bot6596894056:AAFwScLkMoTPzCwB1yNMZENqsR1KGTzgkL4/setWebhook?url=https://<ngrok_uid>.ngrok-free.app/bot/
